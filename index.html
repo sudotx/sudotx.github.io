@@ -272,23 +272,33 @@
     [a="dark"] .tag { border-color: #fefefe33; }
     [a="light"] .tag { border-color: #586e7544; }
 
-    /* Skill grid */
-    .skill-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 0.4rem;
+    /* Skill table */
+    .skill-table {
       list-style: none;
       padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
     }
 
-    .skill-grid li {
+    .skill-row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 0.8rem;
       font-size: 0.85rem;
-      padding: 0.3rem 0;
+      align-items: baseline;
       margin: 0;
     }
 
-    [a="dark"] .skill-grid li::before { content: "→ "; color: #F99417; }
-    [a="light"] .skill-grid li::before { content: "→ "; color: #1e70bf; }
+    .skill-cat {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.45;
+      white-space: nowrap;
+    }
+
+    .skill-vals { line-height: 1.5; }
 
     /* Badges */
     .badges {
@@ -372,8 +382,8 @@
     <!-- ── Sidebar ── -->
     <aside class="sidebar">
       <img src="https://github.com/sudotx.png" alt="sudotx" class="author-avatar" />
-      <div class="author-name">sudotx</div>
-      <div class="author-role">software developer · web3</div>
+      <div class="author-name">Agbadi Lawal</div>
+      <div class="author-role">software engineer · web3 · technical writer</div>
 
       <div class="sidebar-section">
         <div class="sidebar-label">contact</div>
@@ -402,8 +412,14 @@
             </a>
           </li>
           <li>
-            <a href="https://linkedin.com/in/sudotx" target="_blank" rel="noopener" class="sidebar-link">
+            <a href="https://linkedin.com/in/agbadi-lawal" target="_blank" rel="noopener" class="sidebar-link">
               <span class="sidebar-icon">in</span> linkedin
+            </a>
+          </li>
+          <li>
+            <!-- update this with your real linktree URL -->
+            <a href="https://linktr.ee/sudotx" target="_blank" rel="noopener" class="sidebar-link">
+              <span class="sidebar-icon">⬡</span> linktree
             </a>
           </li>
         </ul>
@@ -417,20 +433,15 @@
       <h1 id="about">about me</h1>
 
       <p>
-        i'm a software developer working across the stack — backends, frontend interfaces,
-        and smart contracts. i care about writing clean, reliable code and building
-        things that actually work.
+        i'm a software engineer and technical writer with 4+ years of experience
+        building across the web3 stack — smart contracts on EVM and Solana,
+        backend services, and frontend interfaces.
       </p>
 
       <p>
-        currently focused on web3 development: protocol design, smart contracts,
-        and the tooling that makes decentralized systems usable.
-        i'm interested in open source, security, and systems that are hard to break.
-      </p>
-
-      <p>
-        when i'm not writing code i'm reading, exploring new tools, or working on
-        side projects. this site is a work in progress — more content coming soon.
+        i work at the intersection of protocol development, security research,
+        and developer education. i care about correctness, clean architecture,
+        and making complex systems understandable.
       </p>
 
       <hr />
@@ -441,44 +452,83 @@
       <ul class="entries">
 
         <li class="entry">
-          <div class="entry-title"><a href="#">project-one</a></div>
-          <div class="entry-meta">2024</div>
+          <div class="entry-title"><a href="https://github.com/sudotx/miyatees" target="_blank" rel="noopener">miyatees</a></div>
+          <div class="entry-meta">Solidity · 2025</div>
           <p class="entry-desc">
-            a short description of what this project does and the problem it solves.
-            replace this with your real projects.
-          </p>
-          <div class="tags">
-            <span class="tag">TypeScript</span>
-            <span class="tag">React</span>
-            <span class="tag">Node.js</span>
-          </div>
-        </li>
-
-        <li class="entry">
-          <div class="entry-title"><a href="#">project-two</a></div>
-          <div class="entry-meta">2024</div>
-          <p class="entry-desc">
-            smart contract project — description of the protocol, what it does,
-            and why it's interesting.
+            on-chain NFT auction mechanism deployed on Base. implements a
+            dutch-style auction with on-chain price discovery and settlement.
           </p>
           <div class="tags">
             <span class="tag">Solidity</span>
+            <span class="tag">Base</span>
+            <span class="tag">EVM</span>
             <span class="tag">Foundry</span>
-            <span class="tag">Ethereum</span>
           </div>
         </li>
 
         <li class="entry">
-          <div class="entry-title"><a href="#">project-three</a></div>
-          <div class="entry-meta">2023</div>
+          <div class="entry-title"><a href="https://github.com/sudotx/gas-station-service" target="_blank" rel="noopener">gas-station-service</a></div>
+          <div class="entry-meta">TypeScript · 2025</div>
           <p class="entry-desc">
-            backend service — what it does, the problem it solves,
-            and any interesting technical decisions.
+            backend service that automatically airdrops native tokens to NFT holders
+            when their wallet balance falls below a configured threshold. stateless
+            architecture — chain is the source of truth, Redis manages queues and cooldowns.
+          </p>
+          <div class="tags">
+            <span class="tag">TypeScript</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Ethers.js</span>
+            <span class="tag">BullMQ</span>
+            <span class="tag">Redis</span>
+          </div>
+        </li>
+
+        <li class="entry">
+          <div class="entry-title"><a href="https://github.com/sudotx/fitcheck" target="_blank" rel="noopener">fitcheck</a></div>
+          <div class="entry-meta">Python · 2024</div>
+          <p class="entry-desc">
+            fashion marketplace backend with AI-powered visual similarity search
+            using OpenAI CLIP and FAISS. features real-time bidding, outfit
+            recommendations, wardrobe management, and WebSocket notifications.
           </p>
           <div class="tags">
             <span class="tag">Python</span>
+            <span class="tag">Flask</span>
             <span class="tag">PostgreSQL</span>
-            <span class="tag">Docker</span>
+            <span class="tag">AWS S3</span>
+            <span class="tag">CLIP</span>
+            <span class="tag">FAISS</span>
+          </div>
+        </li>
+
+        <li class="entry">
+          <div class="entry-title"><a href="https://github.com/sudotx/anchor-token-whitelist" target="_blank" rel="noopener">anchor-token-whitelist</a></div>
+          <div class="entry-meta">Rust · 2024</div>
+          <p class="entry-desc">
+            Solana program implementing a permissioned token whitelist using the
+            Anchor framework. enforces access control over which tokens can
+            interact with a given program.
+          </p>
+          <div class="tags">
+            <span class="tag">Rust</span>
+            <span class="tag">Anchor</span>
+            <span class="tag">Solana</span>
+          </div>
+        </li>
+
+        <li class="entry">
+          <div class="entry-title"><a href="https://github.com/sudotx/jobs-program" target="_blank" rel="noopener">jobs-program</a></div>
+          <div class="entry-meta">Rust · 2023</div>
+          <p class="entry-desc">
+            Solana Anchor program powering a decentralized freelancer marketplace.
+            handles on-chain job posting, escrow, and payment settlement in
+            SOL and SPL tokens.
+          </p>
+          <div class="tags">
+            <span class="tag">Rust</span>
+            <span class="tag">Anchor</span>
+            <span class="tag">Solana</span>
+            <span class="tag">SPL</span>
           </div>
         </li>
 
@@ -494,20 +544,44 @@
       <ul class="entries">
 
         <li class="entry">
-          <div class="entry-title">software developer</div>
-          <div class="entry-meta">company / project · 2023 – present</div>
+          <div class="entry-title">technical writer</div>
+          <div class="entry-meta">independent · Jan 2025 – present</div>
           <p class="entry-desc">
-            what you worked on, what you built, and what you learned.
-            replace this with your actual experience.
+            writing technical articles for developers in the web3 space. topics
+            include Ethereum tooling, software invariants, and smart contract
+            attack vectors such as slippage manipulation.
           </p>
         </li>
 
         <li class="entry">
-          <div class="entry-title">previous role</div>
-          <div class="entry-meta">company / project · 2022 – 2023</div>
+          <div class="entry-title">open source contributor</div>
+          <div class="entry-meta">May 2024 – present</div>
           <p class="entry-desc">
-            another role description. keep it short — two or three sentences
-            about what you shipped and what mattered.
+            contributed to the testing suite for Alignment Vault, a composable
+            primitive that permanently allocates ETH to deepen NFT collection
+            liquidity. also contributed to an EVM hacks root cause analysis
+            database tracking exploits across EVM ecosystems.
+          </p>
+        </li>
+
+        <li class="entry">
+          <div class="entry-title">blockchain developer · IvoryPay</div>
+          <div class="entry-meta">Aug 2023 – Nov 2023</div>
+          <p class="entry-desc">
+            smart contract developer at a crypto payment gateway optimised for
+            African businesses. led the migration of core features from a
+            Solana-centric design to EVM-compatible environments.
+          </p>
+        </li>
+
+        <li class="entry">
+          <div class="entry-title">backend developer · XJOBS</div>
+          <div class="entry-meta">Jan 2022 – Mar 2023</div>
+          <p class="entry-desc">
+            built and maintained a Solana-based payment system handling SOL and
+            SPL token transactions between freelancers and clients. maintained
+            RESTful APIs serving 500+ daily requests at 89.9% uptime. automated
+            testing pipelines reduced deployment errors by 40%.
           </p>
         </li>
 
@@ -518,19 +592,39 @@
       <!-- Stack -->
       <h2 id="stack">stack</h2>
 
-      <ul class="skill-grid">
-        <li>TypeScript</li>
-        <li>JavaScript</li>
-        <li>Python</li>
-        <li>Solidity</li>
-        <li>React</li>
-        <li>Next.js</li>
-        <li>Node.js</li>
-        <li>PostgreSQL</li>
-        <li>Foundry</li>
-        <li>Docker</li>
-        <li>Git</li>
-        <li>Linux</li>
+      <ul class="skill-table">
+        <li class="skill-row">
+          <span class="skill-cat">languages</span>
+          <span class="skill-vals">TypeScript, JavaScript, Rust, Solidity, Python, HTML/CSS, Markdown</span>
+        </li>
+        <li class="skill-row">
+          <span class="skill-cat">frontend</span>
+          <span class="skill-vals">React, Next.js, WebSocket, CSS</span>
+        </li>
+        <li class="skill-row">
+          <span class="skill-cat">backend</span>
+          <span class="skill-vals">Node.js, Express, Flask, BullMQ, Redis</span>
+        </li>
+        <li class="skill-row">
+          <span class="skill-cat">blockchain</span>
+          <span class="skill-vals">EVM, Solana, Anchor, Foundry, Hardhat, Ethers.js, Wagmi</span>
+        </li>
+        <li class="skill-row">
+          <span class="skill-cat">security</span>
+          <span class="skill-vals">smart contract auditing, invariant testing, fuzz testing, EVM exploit analysis</span>
+        </li>
+        <li class="skill-row">
+          <span class="skill-cat">mev</span>
+          <span class="skill-vals">arbitrage bots, flashloan mechanics, mempool analysis</span>
+        </li>
+        <li class="skill-row">
+          <span class="skill-cat">databases</span>
+          <span class="skill-vals">PostgreSQL, Redis, AWS S3</span>
+        </li>
+        <li class="skill-row">
+          <span class="skill-cat">tooling</span>
+          <span class="skill-vals">Docker, Git, Linux, Cargo, CI/CD</span>
+        </li>
       </ul>
 
       <hr />
@@ -546,14 +640,9 @@
       <ul>
         <li>email — <a href="mailto:agbadilawal78@gmail.com">agbadilawal78@gmail.com</a></li>
         <li>github — <a href="https://github.com/sudotx" target="_blank" rel="noopener">github.com/sudotx</a></li>
+        <li>twitter — <a href="https://twitter.com/sudotx" target="_blank" rel="noopener">@sudotx</a></li>
+        <li>linkedin — <a href="https://linkedin.com/in/agbadi-lawal" target="_blank" rel="noopener">agbadi-lawal</a></li>
       </ul>
-
-      <!-- Retro 88x31 buttons -->
-      <div class="badges">
-        <img src="https://img.shields.io/badge/HTML-only-orange?style=flat-square" alt="html only" height="20" />
-        <img src="https://img.shields.io/badge/no%20framework-monospace-blue?style=flat-square" alt="no framework" height="20" />
-        <img src="https://img.shields.io/badge/web3-solidity-lightgrey?style=flat-square" alt="web3" height="20" />
-      </div>
 
     </main>
 
