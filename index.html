@@ -3,431 +3,248 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sudotx — Developer</title>
+  <meta name="description" content="sudotx — software developer" />
+  <title>sudotx</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0d0d0d;
-      --surface: #141414;
-      --border: #222;
-      --text: #e8e8e8;
-      --muted: #888;
-      --accent: #c8f542;
-      --font: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-    }
-
-    html { scroll-behavior: smooth; }
+    /* ── Base ── */
+    * { box-sizing: border-box; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 14px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
+      font-family: monospace;
+      font-size: 16px;
+      line-height: 1.48;
+      margin: 0;
+      transition: background-color 0.15s, color 0.15s;
     }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    /* ── Dark mode ── */
+    [a="dark"] { background-color: #070F2B; color: #fefefe; }
+    [a="dark"] a { color: #F99417; text-decoration: none; }
+    [a="dark"] a:hover { text-decoration: underline; }
+    [a="dark"] a:visited { color: #0E8388; }
+    [a="dark"] code { background-color: #fefefe; color: #070F2B; }
+    [a="dark"] pre { background: #111b3a; padding: 1em; overflow-x: auto; white-space: pre-wrap; }
+    [a="dark"] blockquote { border-left: 3px solid #F99417; padding-left: 1rem; margin-left: 0; }
+    [a="dark"] hr { border-color: #1e2d5a; }
+    [a="dark"] .theme-btn { border-color: #fefefe55; color: #fefefe99; }
+    [a="dark"] .theme-btn:hover { border-color: #fefefe; color: #fefefe; }
+    [a="dark"] .tag { color: #fefefe66; }
+
+    /* ── Light mode ── */
+    [a="light"] { background-color: #eee8d5; color: #586e75; }
+    [a="light"] a { color: #1e70bf; text-decoration: none; }
+    [a="light"] a:hover { text-decoration: underline; }
+    [a="light"] a:visited { color: #921292; }
+    [a="light"] code { background-color: #d5ceba; color: #586e75; padding: 0.1em 0.3em; }
+    [a="light"] pre { background: #ddd8c5; padding: 1em; overflow-x: auto; white-space: pre-wrap; }
+    [a="light"] blockquote { border-left: 3px solid #586e75; padding-left: 1rem; margin-left: 0; }
+    [a="light"] hr { border-color: #c9c3b0; }
+    [a="light"] .theme-btn { border-color: #58607555; color: #58607599; }
+    [a="light"] .theme-btn:hover { border-color: #586075; color: #586075; }
+    [a="light"] .tag { color: #586e7588; }
 
     /* ── Layout ── */
-    .container {
-      max-width: 680px;
+    .w {
+      max-width: 700px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 4rem 2rem;
     }
 
-    /* ── Nav ── */
-    nav {
-      border-bottom: 1px solid var(--border);
-      padding: 20px 0;
-    }
-
-    nav .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-logo {
-      color: var(--accent);
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--muted);
+    /* ── Theme toggle ── */
+    .theme-btn {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: none;
+      border: thin solid;
+      font-family: monospace;
       font-size: 13px;
-      transition: color 0.15s;
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    /* ── Hero ── */
-    .hero {
-      padding: 96px 0 80px;
-    }
-
-    .hero-tag {
-      color: var(--accent);
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 {
-      font-size: clamp(32px, 6vw, 52px);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      color: #fff;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 span {
-      color: var(--accent);
-    }
-
-    .hero-bio {
-      color: var(--muted);
-      font-size: 14px;
-      max-width: 480px;
-      margin-bottom: 36px;
-      line-height: 1.8;
-    }
-
-    .hero-links {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-radius: 4px;
-      font-family: var(--font);
-      font-size: 13px;
+      padding: 0.2rem 0.6rem;
       cursor: pointer;
       transition: opacity 0.15s;
     }
 
-    .btn:hover { opacity: 0.8; text-decoration: none; }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #0d0d0d;
-      font-weight: 600;
-    }
-
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .btn-outline:hover { color: var(--text); }
-
-    /* ── Section ── */
-    section {
-      padding: 72px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 32px;
-    }
-
-    h2 {
-      font-size: 22px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 16px;
-    }
-
-    p {
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    /* ── Skills ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .skill-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 10px 14px;
-      font-size: 13px;
-      color: var(--text);
-    }
-
-    /* ── Projects ── */
-    .projects-grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 24px;
-      transition: border-color 0.15s;
-    }
-
-    .project-card:hover {
-      border-color: #444;
-    }
-
-    .project-card h3 {
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 8px;
-    }
-
-    .project-card p {
-      font-size: 13px;
-      margin-bottom: 16px;
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tag {
-      font-size: 11px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      background: #1a1a1a;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    /* ── Contact ── */
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .contact-link {
+    /* ── Header ── */
+    .profile {
       display: flex;
       align-items: center;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 13px;
-      transition: color 0.15s;
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
     }
 
-    .contact-link:hover {
-      color: var(--accent);
-      text-decoration: none;
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: block;
+      margin: 0;
     }
 
-    .contact-link-icon {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-size: 16px;
+    .profile-text h1 {
+      margin: 0 0 0.2rem 0;
+      font-size: 1.4rem;
+      font-weight: bold;
     }
 
-    /* ── Footer ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0;
+    .profile-text p {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.75;
     }
 
-    footer .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    /* ── Nav ── */
+    nav {
+      margin: 1.6rem 0 0 0;
     }
 
-    footer p {
-      font-size: 12px;
-      color: #555;
+    nav a {
+      margin-right: 1.4rem;
+      font-size: 0.95rem;
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 480px) {
-      .nav-links { gap: 18px; }
-      .hero { padding: 64px 0 56px; }
-      footer .container { flex-direction: column; gap: 8px; text-align: center; }
+    /* ── Typography ── */
+    h2, h3, h4, h5, h6 { margin-top: 3rem; margin-bottom: 0.5rem; font-size: 1rem; }
+    h2 { font-size: 1.05rem; }
+    p { margin: 1.2rem 0; }
+    ul { padding-left: 1.4rem; }
+    li { margin: 0.5rem 0; }
+    img { max-width: 100%; }
+
+    hr {
+      border: none;
+      border-top: thin solid;
+      margin: 2.5rem 0;
+      opacity: 0.25;
+    }
+
+    /* ── Entry list (projects) ── */
+    .entries { list-style: none; padding: 0; }
+    .entries li { margin: 0.8rem 0; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+    .tag { font-size: 0.8rem; }
+
+    /* ── 88x31 buttons ── */
+    .badges {
+      margin-top: 3rem;
+      line-height: 0;
+    }
+
+    .badges img {
+      display: inline;
+      margin: 0 4px 4px 0;
+      image-rendering: pixelated;
     }
   </style>
 </head>
 <body>
 
-  <!-- Nav -->
-  <nav>
-    <div class="container">
-      <span class="nav-logo">~/sudotx</span>
-      <ul class="nav-links">
-        <li><a href="#about">about</a></li>
-        <li><a href="#projects">projects</a></li>
-        <li><a href="#contact">contact</a></li>
-      </ul>
-    </div>
-  </nav>
+  <button class="theme-btn" onclick="toggleTheme()">theme</button>
 
-  <!-- Hero -->
-  <header class="hero">
-    <div class="container">
-      <p class="hero-tag">available for work</p>
-      <h1>Hi, I'm <span>sudotx</span>.<br />I build things<br />for the web.</h1>
-      <p class="hero-bio">
-        Software developer focused on building clean, reliable software.
-        I care about good architecture, readable code, and shipping things that work.
-      </p>
-      <div class="hero-links">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="https://github.com/sudotx" target="_blank" rel="noopener" class="btn btn-outline">GitHub ↗</a>
+  <div class="w">
+
+    <!-- Profile -->
+    <div class="profile">
+      <img src="https://github.com/sudotx.png" alt="sudotx" class="avatar" />
+      <div class="profile-text">
+        <h1>sudotx</h1>
+        <p>software developer · web3</p>
       </div>
     </div>
-  </header>
 
-  <!-- About -->
-  <section id="about">
-    <div class="container">
-      <p class="section-label">// about</p>
-      <h2>A bit about me</h2>
-      <p>
-        I'm a developer who enjoys working across the stack — from designing APIs
-        to building frontend interfaces. I value simplicity and tend to reach for
-        the boring, reliable solution over the clever one.
-      </p>
-      <br />
-      <p>
-        When I'm not writing code, I'm reading, building side projects, or exploring
-        new tools and ideas. More content coming soon — this is just the start.
-      </p>
+    <!-- Nav -->
+    <nav>
+      <a href="#about">about</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+      <a href="https://github.com/sudotx" target="_blank" rel="noopener">github</a>
+    </nav>
+
+    <hr />
+
+    <!-- About -->
+    <h2 id="about">about</h2>
+
+    <p>
+      i'm a software developer who works across the stack. i care about
+      writing clean, reliable code and shipping things that actually work.
+    </p>
+
+    <p>
+      currently building in web3 and exploring smart contract development.
+      interested in protocol design, security, and open source.
+    </p>
+
+    <hr />
+
+    <!-- Projects -->
+    <h2 id="projects">projects</h2>
+
+    <ul class="entries">
+      <li>
+        <a href="#">project-one</a>
+        <span class="tag">TypeScript · React</span>
+      </li>
+      <li>
+        <a href="#">project-two</a>
+        <span class="tag">Solidity · Web3</span>
+      </li>
+      <li>
+        <a href="#">project-three</a>
+        <span class="tag">Node.js · PostgreSQL</span>
+      </li>
+    </ul>
+
+    <p><a href="https://github.com/sudotx" target="_blank" rel="noopener">view all on github →</a></p>
+
+    <hr />
+
+    <!-- Stack -->
+    <h2 id="stack">stack</h2>
+
+    <ul>
+      <li>languages — TypeScript, JavaScript, Python, Solidity</li>
+      <li>frontend — React, Next.js</li>
+      <li>backend — Node.js, PostgreSQL, Docker</li>
+      <li>web3 — Ethereum, smart contracts, ethers.js</li>
+    </ul>
+
+    <hr />
+
+    <!-- Contact -->
+    <h2 id="contact">contact</h2>
+
+    <p>
+      open to work, collaborations, and interesting problems.
+    </p>
+
+    <ul>
+      <li>email — <a href="mailto:agbadilawal78@gmail.com">agbadilawal78@gmail.com</a></li>
+      <li>github — <a href="https://github.com/sudotx" target="_blank" rel="noopener">github.com/sudotx</a></li>
+    </ul>
+
+    <!-- 88x31 retro buttons -->
+    <div class="badges">
+      <a href="https://github.com/sudotx" target="_blank" rel="noopener">
+        <img src="https://img.shields.io/badge/GitHub-sudotx-black?style=flat-square&logo=github" alt="github" height="31" />
+      </a>
+      <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="built with love" height="31" />
+      <img src="https://forthebadge.com/images/badges/uses-html.svg" alt="uses html" height="31" />
     </div>
-  </section>
 
-  <!-- Skills -->
-  <section id="skills">
-    <div class="container">
-      <p class="section-label">// stack</p>
-      <h2>Technologies</h2>
-      <div class="skills-grid">
-        <div class="skill-item">TypeScript</div>
-        <div class="skill-item">JavaScript</div>
-        <div class="skill-item">React</div>
-        <div class="skill-item">Node.js</div>
-        <div class="skill-item">Python</div>
-        <div class="skill-item">Solidity</div>
-        <div class="skill-item">PostgreSQL</div>
-        <div class="skill-item">Git</div>
-        <div class="skill-item">Docker</div>
-        <div class="skill-item">Linux</div>
-      </div>
-    </div>
-  </section>
+  </div>
 
-  <!-- Projects -->
-  <section id="projects">
-    <div class="container">
-      <p class="section-label">// projects</p>
-      <h2>Selected Work</h2>
-      <div class="projects-grid">
+  <script>
+    (function () {
+      const saved = localStorage.getItem('darkTheme');
+      document.body.setAttribute('a', saved === 'true' ? 'dark' : 'light');
+    })();
 
-        <div class="project-card">
-          <h3>Project One</h3>
-          <p>A short description of what this project does and the problem it solves. Add your real projects here.</p>
-          <div class="project-tags">
-            <span class="tag">TypeScript</span>
-            <span class="tag">React</span>
-            <span class="tag">Node.js</span>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <h3>Project Two</h3>
-          <p>Another project description. Keep it brief — one or two sentences is enough to spark interest.</p>
-          <div class="project-tags">
-            <span class="tag">Solidity</span>
-            <span class="tag">Web3</span>
-            <span class="tag">Ethereum</span>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <h3>Project Three</h3>
-          <p>More details coming soon. Fill this in with your actual work, repos, or side projects.</p>
-          <div class="project-tags">
-            <span class="tag">Python</span>
-            <span class="tag">PostgreSQL</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <div class="container">
-      <p class="section-label">// contact</p>
-      <h2>Get in touch</h2>
-      <p style="margin-bottom: 28px;">
-        Open to opportunities, collaborations, or just a good conversation. Reach out anywhere below.
-      </p>
-      <div class="contact-links">
-        <a href="mailto:agbadilawal78@gmail.com" class="contact-link">
-          <span class="contact-link-icon">✉</span>
-          agbadilawal78@gmail.com
-        </a>
-        <a href="https://github.com/sudotx" target="_blank" rel="noopener" class="contact-link">
-          <span class="contact-link-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/>
-            </svg>
-          </span>
-          github.com/sudotx
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>© 2025 sudotx</p>
-      <p>built with HTML &amp; CSS</p>
-    </div>
-  </footer>
+    window.toggleTheme = function () {
+      const isDark = document.body.getAttribute('a') === 'dark';
+      const next = !isDark;
+      document.body.setAttribute('a', next ? 'dark' : 'light');
+      localStorage.setItem('darkTheme', String(next));
+    };
+  </script>
 
 </body>
 </html>
