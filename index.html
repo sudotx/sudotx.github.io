@@ -6,123 +6,291 @@
   <meta name="description" content="sudotx — software developer" />
   <title>sudotx</title>
   <style>
-    /* ── Base ── */
-    * { box-sizing: border-box; }
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ── Base ── */
     body {
       font-family: monospace;
       font-size: 16px;
       line-height: 1.48;
-      margin: 0;
       transition: background-color 0.15s, color 0.15s;
     }
 
-    /* ── Dark mode ── */
+    /* ════════════════════════
+       DARK MODE
+    ════════════════════════ */
     [a="dark"] { background-color: #070F2B; color: #fefefe; }
     [a="dark"] a { color: #F99417; text-decoration: none; }
     [a="dark"] a:hover { text-decoration: underline; }
     [a="dark"] a:visited { color: #0E8388; }
-    [a="dark"] code { background-color: #fefefe; color: #070F2B; }
+    [a="dark"] code { background-color: #fefefe; color: #070F2B; padding: 0.1em 0.3em; }
     [a="dark"] pre { background: #111b3a; padding: 1em; overflow-x: auto; white-space: pre-wrap; }
-    [a="dark"] blockquote { border-left: 3px solid #F99417; padding-left: 1rem; margin-left: 0; }
+    [a="dark"] blockquote { border-left: 3px solid #F99417; padding-left: 1rem; }
     [a="dark"] hr { border-color: #1e2d5a; }
-    [a="dark"] .theme-btn { border-color: #fefefe55; color: #fefefe99; }
-    [a="dark"] .theme-btn:hover { border-color: #fefefe; color: #fefefe; }
-    [a="dark"] .tag { color: #fefefe66; }
 
-    /* ── Light mode ── */
+    [a="dark"] .masthead { border-bottom: 1px solid #1e2d5a; }
+    [a="dark"] .sidebar { border-right: 1px solid #1e2d5a; }
+    [a="dark"] .sidebar-link { color: #fefefe99; }
+    [a="dark"] .sidebar-link:hover { color: #F99417; text-decoration: none; }
+    [a="dark"] .sidebar-link:visited { color: #fefefe88; }
+    [a="dark"] .theme-btn { border-color: #fefefe33; color: #fefefe66; }
+    [a="dark"] .theme-btn:hover { border-color: #fefefe99; color: #fefefe; }
+    [a="dark"] .tag { color: #fefefe55; }
+    [a="dark"] .nav-link { color: #fefefe99; }
+    [a="dark"] .nav-link:hover { color: #F99417; text-decoration: none; }
+    [a="dark"] .nav-brand { color: #fefefe; }
+    [a="dark"] .nav-brand:hover { text-decoration: none; }
+
+    /* ════════════════════════
+       LIGHT MODE
+    ════════════════════════ */
     [a="light"] { background-color: #eee8d5; color: #586e75; }
     [a="light"] a { color: #1e70bf; text-decoration: none; }
     [a="light"] a:hover { text-decoration: underline; }
     [a="light"] a:visited { color: #921292; }
     [a="light"] code { background-color: #d5ceba; color: #586e75; padding: 0.1em 0.3em; }
     [a="light"] pre { background: #ddd8c5; padding: 1em; overflow-x: auto; white-space: pre-wrap; }
-    [a="light"] blockquote { border-left: 3px solid #586e75; padding-left: 1rem; margin-left: 0; }
+    [a="light"] blockquote { border-left: 3px solid #586e75; padding-left: 1rem; }
     [a="light"] hr { border-color: #c9c3b0; }
-    [a="light"] .theme-btn { border-color: #58607555; color: #58607599; }
-    [a="light"] .theme-btn:hover { border-color: #586075; color: #586075; }
-    [a="light"] .tag { color: #586e7588; }
 
-    /* ── Layout ── */
-    .w {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
+    [a="light"] .masthead { border-bottom: 1px solid #c9c3b0; }
+    [a="light"] .sidebar { border-right: 1px solid #c9c3b0; }
+    [a="light"] .sidebar-link { color: #586e75cc; }
+    [a="light"] .sidebar-link:hover { color: #1e70bf; text-decoration: none; }
+    [a="light"] .sidebar-link:visited { color: #586e75aa; }
+    [a="light"] .theme-btn { border-color: #58607533; color: #58607566; }
+    [a="light"] .theme-btn:hover { border-color: #586075; color: #586075; }
+    [a="light"] .tag { color: #586e7566; }
+    [a="light"] .nav-link { color: #586e75cc; }
+    [a="light"] .nav-link:hover { color: #1e70bf; text-decoration: none; }
+    [a="light"] .nav-brand { color: #586e75; font-weight: bold; }
+    [a="light"] .nav-brand:hover { text-decoration: none; }
+
+    /* ════════════════════════
+       MASTHEAD (top nav)
+    ════════════════════════ */
+    .masthead {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.8rem 2rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
-    /* ── Theme toggle ── */
+    .masthead-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.6rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-link { font-size: 0.9rem; }
+
     .theme-btn {
-      position: fixed;
-      top: 1.2rem;
-      right: 1.2rem;
       background: none;
       border: thin solid;
       font-family: monospace;
-      font-size: 13px;
-      padding: 0.2rem 0.6rem;
+      font-size: 12px;
+      padding: 0.2rem 0.5rem;
       cursor: pointer;
-      transition: opacity 0.15s;
+      transition: all 0.15s;
     }
 
-    /* ── Header ── */
-    .profile {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
+    /* ════════════════════════
+       TWO-COLUMN LAYOUT
+    ════════════════════════ */
+    .layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: calc(100vh - 49px);
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      padding: 3rem 1.8rem 3rem 2rem;
+      position: sticky;
+      top: 49px;
+      height: calc(100vh - 49px);
+      overflow-y: auto;
+    }
+
+    .author-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .author-name {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+
+    .author-role {
+      font-size: 0.8rem;
+      opacity: 0.65;
+      margin-bottom: 1.8rem;
+    }
+
+    .sidebar-section {
+      margin-bottom: 1.8rem;
+    }
+
+    .sidebar-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.5;
+      margin-bottom: 0.7rem;
+    }
+
+    .sidebar-links {
+      list-style: none;
+    }
+
+    .sidebar-links li {
       margin-bottom: 0.5rem;
     }
 
-    .avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      display: block;
-      margin: 0;
+    .sidebar-link {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    .profile-text h1 {
-      margin: 0 0 0.2rem 0;
-      font-size: 1.4rem;
-      font-weight: bold;
+    .sidebar-icon {
+      width: 14px;
+      text-align: center;
+      opacity: 0.7;
+      flex-shrink: 0;
     }
 
-    .profile-text p {
-      margin: 0;
-      font-size: 0.9rem;
-      opacity: 0.75;
+    /* ── Main content ── */
+    .main {
+      padding: 3rem 3rem 4rem 3rem;
+      max-width: 720px;
     }
 
-    /* ── Nav ── */
-    nav {
-      margin: 1.6rem 0 0 0;
-    }
+    /* ════════════════════════
+       TYPOGRAPHY
+    ════════════════════════ */
+    h1 { font-size: 1.4rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 1.05rem; margin-top: 3.5rem; margin-bottom: 0.8rem; }
+    h3 { font-size: 0.95rem; margin-top: 2rem; margin-bottom: 0.4rem; }
 
-    nav a {
-      margin-right: 1.4rem;
-      font-size: 0.95rem;
-    }
-
-    /* ── Typography ── */
-    h2, h3, h4, h5, h6 { margin-top: 3rem; margin-bottom: 0.5rem; font-size: 1rem; }
-    h2 { font-size: 1.05rem; }
     p { margin: 1.2rem 0; }
+
     ul { padding-left: 1.4rem; }
-    li { margin: 0.5rem 0; }
-    img { max-width: 100%; }
+    li { margin: 0.45rem 0; }
+
+    img { max-width: 100%; display: block; }
 
     hr {
       border: none;
       border-top: thin solid;
-      margin: 2.5rem 0;
-      opacity: 0.25;
+      margin: 3rem 0;
+      opacity: 0.2;
     }
 
-    /* ── Entry list (projects) ── */
-    .entries { list-style: none; padding: 0; }
-    .entries li { margin: 0.8rem 0; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
-    .tag { font-size: 0.8rem; }
+    /* ════════════════════════
+       COMPONENTS
+    ════════════════════════ */
 
-    /* ── 88x31 buttons ── */
+    /* Entry list (projects, experience) */
+    .entries { list-style: none; padding: 0; }
+
+    .entry {
+      margin-bottom: 1.6rem;
+      padding-bottom: 1.6rem;
+      border-bottom: thin solid;
+      opacity: 1;
+    }
+
+    [a="dark"] .entry { border-color: #1e2d5a; }
+    [a="light"] .entry { border-color: #c9c3b0; }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-title {
+      font-size: 0.95rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+
+    .entry-meta {
+      font-size: 0.78rem;
+      margin-bottom: 0.4rem;
+    }
+
+    [a="dark"] .entry-meta { color: #fefefe66; }
+    [a="light"] .entry-meta { color: #586e7588; }
+
+    .entry-desc {
+      font-size: 0.85rem;
+      margin: 0.3rem 0 0.5rem 0;
+      line-height: 1.6;
+    }
+
+    [a="dark"] .entry-desc { color: #fefefe99; }
+    [a="light"] .entry-desc { color: #586e75cc; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 0.1rem 0.5rem;
+      border: thin solid;
+      opacity: 0.7;
+    }
+
+    [a="dark"] .tag { border-color: #fefefe33; }
+    [a="light"] .tag { border-color: #586e7544; }
+
+    /* Skill grid */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.4rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    .skill-grid li {
+      font-size: 0.85rem;
+      padding: 0.3rem 0;
+      margin: 0;
+    }
+
+    [a="dark"] .skill-grid li::before { content: "→ "; color: #F99417; }
+    [a="light"] .skill-grid li::before { content: "→ "; color: #1e70bf; }
+
+    /* Badges */
     .badges {
       margin-top: 3rem;
       line-height: 0;
@@ -133,104 +301,263 @@
       margin: 0 4px 4px 0;
       image-rendering: pixelated;
     }
+
+    /* ════════════════════════
+       FOOTER
+    ════════════════════════ */
+    .footer {
+      grid-column: 1 / -1;
+      padding: 1.5rem 2rem;
+      font-size: 0.78rem;
+      opacity: 0.4;
+      border-top: thin solid;
+    }
+
+    [a="dark"] .footer { border-color: #1e2d5a; }
+    [a="light"] .footer { border-color: #c9c3b0; }
+
+    /* ════════════════════════
+       RESPONSIVE
+    ════════════════════════ */
+    @media (max-width: 700px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: thin solid;
+        padding: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: flex-start;
+      }
+
+      [a="dark"] .sidebar { border-bottom-color: #1e2d5a; }
+      [a="light"] .sidebar { border-bottom-color: #c9c3b0; }
+
+      .author-avatar { margin-bottom: 0; }
+
+      .main { padding: 2rem; }
+
+      .nav-links { gap: 1rem; }
+
+      .masthead { padding: 0.8rem 1.2rem; }
+    }
   </style>
 </head>
 <body>
 
-  <button class="theme-btn" onclick="toggleTheme()">theme</button>
-
-  <div class="w">
-
-    <!-- Profile -->
-    <div class="profile">
-      <img src="https://github.com/sudotx.png" alt="sudotx" class="avatar" />
-      <div class="profile-text">
-        <h1>sudotx</h1>
-        <p>software developer · web3</p>
-      </div>
+  <!-- ══ MASTHEAD ══ -->
+  <div class="masthead">
+    <div class="masthead-inner">
+      <a href="/" class="nav-brand">sudotx</a>
+      <ul class="nav-links">
+        <li><a href="#about" class="nav-link">about</a></li>
+        <li><a href="#projects" class="nav-link">projects</a></li>
+        <li><a href="#experience" class="nav-link">experience</a></li>
+        <li><a href="#contact" class="nav-link">contact</a></li>
+        <li><a href="https://github.com/sudotx" target="_blank" rel="noopener" class="nav-link">github ↗</a></li>
+        <li><button class="theme-btn" onclick="toggleTheme()">theme</button></li>
+      </ul>
     </div>
-
-    <!-- Nav -->
-    <nav>
-      <a href="#about">about</a>
-      <a href="#projects">projects</a>
-      <a href="#contact">contact</a>
-      <a href="https://github.com/sudotx" target="_blank" rel="noopener">github</a>
-    </nav>
-
-    <hr />
-
-    <!-- About -->
-    <h2 id="about">about</h2>
-
-    <p>
-      i'm a software developer who works across the stack. i care about
-      writing clean, reliable code and shipping things that actually work.
-    </p>
-
-    <p>
-      currently building in web3 and exploring smart contract development.
-      interested in protocol design, security, and open source.
-    </p>
-
-    <hr />
-
-    <!-- Projects -->
-    <h2 id="projects">projects</h2>
-
-    <ul class="entries">
-      <li>
-        <a href="#">project-one</a>
-        <span class="tag">TypeScript · React</span>
-      </li>
-      <li>
-        <a href="#">project-two</a>
-        <span class="tag">Solidity · Web3</span>
-      </li>
-      <li>
-        <a href="#">project-three</a>
-        <span class="tag">Node.js · PostgreSQL</span>
-      </li>
-    </ul>
-
-    <p><a href="https://github.com/sudotx" target="_blank" rel="noopener">view all on github →</a></p>
-
-    <hr />
-
-    <!-- Stack -->
-    <h2 id="stack">stack</h2>
-
-    <ul>
-      <li>languages — TypeScript, JavaScript, Python, Solidity</li>
-      <li>frontend — React, Next.js</li>
-      <li>backend — Node.js, PostgreSQL, Docker</li>
-      <li>web3 — Ethereum, smart contracts, ethers.js</li>
-    </ul>
-
-    <hr />
-
-    <!-- Contact -->
-    <h2 id="contact">contact</h2>
-
-    <p>
-      open to work, collaborations, and interesting problems.
-    </p>
-
-    <ul>
-      <li>email — <a href="mailto:agbadilawal78@gmail.com">agbadilawal78@gmail.com</a></li>
-      <li>github — <a href="https://github.com/sudotx" target="_blank" rel="noopener">github.com/sudotx</a></li>
-    </ul>
-
-    <!-- 88x31 retro buttons -->
-    <div class="badges">
-      <a href="https://github.com/sudotx" target="_blank" rel="noopener">
-        <img src="https://img.shields.io/badge/GitHub-sudotx-black?style=flat-square&logo=github" alt="github" height="31" />
-      </a>
-      <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="built with love" height="31" />
-      <img src="https://forthebadge.com/images/badges/uses-html.svg" alt="uses html" height="31" />
-    </div>
-
   </div>
+
+  <!-- ══ TWO-COLUMN LAYOUT ══ -->
+  <div class="layout">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <img src="https://github.com/sudotx.png" alt="sudotx" class="author-avatar" />
+      <div class="author-name">sudotx</div>
+      <div class="author-role">software developer · web3</div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">contact</div>
+        <ul class="sidebar-links">
+          <li>
+            <a href="mailto:agbadilawal78@gmail.com" class="sidebar-link">
+              <span class="sidebar-icon">✉</span> email
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/sudotx" target="_blank" rel="noopener" class="sidebar-link">
+              <span class="sidebar-icon">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              </span> github
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">elsewhere</div>
+        <ul class="sidebar-links">
+          <li>
+            <a href="https://twitter.com/sudotx" target="_blank" rel="noopener" class="sidebar-link">
+              <span class="sidebar-icon">𝕏</span> twitter
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/sudotx" target="_blank" rel="noopener" class="sidebar-link">
+              <span class="sidebar-icon">in</span> linkedin
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- ── Main Content ── -->
+    <main class="main">
+
+      <!-- About -->
+      <h1 id="about">about me</h1>
+
+      <p>
+        i'm a software developer working across the stack — backends, frontend interfaces,
+        and smart contracts. i care about writing clean, reliable code and building
+        things that actually work.
+      </p>
+
+      <p>
+        currently focused on web3 development: protocol design, smart contracts,
+        and the tooling that makes decentralized systems usable.
+        i'm interested in open source, security, and systems that are hard to break.
+      </p>
+
+      <p>
+        when i'm not writing code i'm reading, exploring new tools, or working on
+        side projects. this site is a work in progress — more content coming soon.
+      </p>
+
+      <hr />
+
+      <!-- Projects -->
+      <h2 id="projects">projects</h2>
+
+      <ul class="entries">
+
+        <li class="entry">
+          <div class="entry-title"><a href="#">project-one</a></div>
+          <div class="entry-meta">2024</div>
+          <p class="entry-desc">
+            a short description of what this project does and the problem it solves.
+            replace this with your real projects.
+          </p>
+          <div class="tags">
+            <span class="tag">TypeScript</span>
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+          </div>
+        </li>
+
+        <li class="entry">
+          <div class="entry-title"><a href="#">project-two</a></div>
+          <div class="entry-meta">2024</div>
+          <p class="entry-desc">
+            smart contract project — description of the protocol, what it does,
+            and why it's interesting.
+          </p>
+          <div class="tags">
+            <span class="tag">Solidity</span>
+            <span class="tag">Foundry</span>
+            <span class="tag">Ethereum</span>
+          </div>
+        </li>
+
+        <li class="entry">
+          <div class="entry-title"><a href="#">project-three</a></div>
+          <div class="entry-meta">2023</div>
+          <p class="entry-desc">
+            backend service — what it does, the problem it solves,
+            and any interesting technical decisions.
+          </p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Docker</span>
+          </div>
+        </li>
+
+      </ul>
+
+      <p><a href="https://github.com/sudotx" target="_blank" rel="noopener">see more on github →</a></p>
+
+      <hr />
+
+      <!-- Experience -->
+      <h2 id="experience">experience</h2>
+
+      <ul class="entries">
+
+        <li class="entry">
+          <div class="entry-title">software developer</div>
+          <div class="entry-meta">company / project · 2023 – present</div>
+          <p class="entry-desc">
+            what you worked on, what you built, and what you learned.
+            replace this with your actual experience.
+          </p>
+        </li>
+
+        <li class="entry">
+          <div class="entry-title">previous role</div>
+          <div class="entry-meta">company / project · 2022 – 2023</div>
+          <p class="entry-desc">
+            another role description. keep it short — two or three sentences
+            about what you shipped and what mattered.
+          </p>
+        </li>
+
+      </ul>
+
+      <hr />
+
+      <!-- Stack -->
+      <h2 id="stack">stack</h2>
+
+      <ul class="skill-grid">
+        <li>TypeScript</li>
+        <li>JavaScript</li>
+        <li>Python</li>
+        <li>Solidity</li>
+        <li>React</li>
+        <li>Next.js</li>
+        <li>Node.js</li>
+        <li>PostgreSQL</li>
+        <li>Foundry</li>
+        <li>Docker</li>
+        <li>Git</li>
+        <li>Linux</li>
+      </ul>
+
+      <hr />
+
+      <!-- Contact -->
+      <h2 id="contact">contact</h2>
+
+      <p>
+        open to work, collaborations, and interesting problems.
+        reach out anywhere in the sidebar or directly below.
+      </p>
+
+      <ul>
+        <li>email — <a href="mailto:agbadilawal78@gmail.com">agbadilawal78@gmail.com</a></li>
+        <li>github — <a href="https://github.com/sudotx" target="_blank" rel="noopener">github.com/sudotx</a></li>
+      </ul>
+
+      <!-- Retro 88x31 buttons -->
+      <div class="badges">
+        <img src="https://img.shields.io/badge/HTML-only-orange?style=flat-square" alt="html only" height="20" />
+        <img src="https://img.shields.io/badge/no%20framework-monospace-blue?style=flat-square" alt="no framework" height="20" />
+        <img src="https://img.shields.io/badge/web3-solidity-lightgrey?style=flat-square" alt="web3" height="20" />
+      </div>
+
+    </main>
+
+  </div><!-- /.layout -->
 
   <script>
     (function () {
