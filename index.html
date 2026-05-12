@@ -329,33 +329,84 @@
     /* ════════════════════════
        RESPONSIVE
     ════════════════════════ */
+
+    /* ── Tablet / small desktop (≤ 860px): collapse nav links ── */
+    @media (max-width: 860px) {
+      .nav-link { display: none; }
+      .nav-links { gap: 0.8rem; }
+      .masthead { padding: 0.7rem 1.2rem; }
+    }
+
+    /* ── Mobile (≤ 700px): single-column layout ── */
     @media (max-width: 700px) {
       .layout {
         grid-template-columns: 1fr;
       }
 
+      /* Sidebar becomes a horizontal header strip */
       .sidebar {
         position: static;
         height: auto;
         border-right: none;
         border-bottom: thin solid;
-        padding: 2rem;
+        padding: 1.2rem 1rem 1rem;
         display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        align-items: flex-start;
+        flex-direction: column;
+        gap: 0;
       }
 
       [a="dark"] .sidebar { border-bottom-color: #1e2d5a; }
       [a="light"] .sidebar { border-bottom-color: #c9c3b0; }
 
-      .author-avatar { margin-bottom: 0; }
+      /* Avatar + name/role side-by-side */
+      .sidebar-top {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        margin-bottom: 1rem;
+      }
 
-      .main { padding: 2rem; }
+      .author-avatar {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
 
-      .nav-links { gap: 1rem; }
+      .author-info { flex: 1; }
+      .author-name { margin-bottom: 0.15rem; }
+      .author-role { margin-bottom: 0; }
 
-      .masthead { padding: 0.8rem 1.2rem; }
+      /* Contact + elsewhere side-by-side */
+      .sidebar-sections {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 2rem;
+      }
+
+      .sidebar-section { margin-bottom: 0.3rem; }
+
+      /* Main content */
+      .main {
+        padding: 1.8rem 1rem 3rem;
+        max-width: 100%;
+      }
+
+      h2 { margin-top: 2.5rem; }
+    }
+
+    /* ── Very small phones (≤ 400px): stack skill categories ── */
+    @media (max-width: 400px) {
+      .masthead { padding: 0.65rem 0.8rem; }
+
+      .main { padding: 1.4rem 0.8rem 2.5rem; }
+
+      .skill-row {
+        grid-template-columns: 1fr;
+        gap: 0.15rem;
+      }
+
+      .skill-cat { margin-bottom: 0.1rem; }
     }
   </style>
 </head>
@@ -381,50 +432,56 @@
 
     <!-- ── Sidebar ── -->
     <aside class="sidebar">
-      <img src="https://github.com/sudotx.png" alt="sudotx" class="author-avatar" />
-      <div class="author-name">dot</div>
-      <div class="author-role">software engineer · web3 · technical writer</div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-label">contact</div>
-        <ul class="sidebar-links">
-          <li>
-            <a href="mailto:agbadilawal78@gmail.com" class="sidebar-link">
-              <span class="sidebar-icon">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
-              </span> gmail
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/sudotx" target="_blank" rel="noopener" class="sidebar-link">
-              <span class="sidebar-icon">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              </span> github
-            </a>
-          </li>
-        </ul>
+      <div class="sidebar-top">
+        <img src="https://github.com/sudotx.png" alt="sudotx" class="author-avatar" />
+        <div class="author-info">
+          <div class="author-name">dot</div>
+          <div class="author-role">software engineer · web3 · technical writer</div>
+        </div>
       </div>
 
-      <div class="sidebar-section">
-        <div class="sidebar-label">elsewhere</div>
-        <ul class="sidebar-links">
-          <li>
-            <a href="https://twitter.com/sudotx" target="_blank" rel="noopener" class="sidebar-link">
-              <span class="sidebar-icon">𝕏</span> X
-            </a>
-          </li>
-          <li>
-            <a href="https://linkedin.com/in/agbadi-lawal" target="_blank" rel="noopener" class="sidebar-link">
-              <span class="sidebar-icon">in</span> linkedin
-            </a>
-          </li>
-          <li>
-            <!-- update this with your real linktree URL -->
-            <a href="https://linktr.ee/sudotx" target="_blank" rel="noopener" class="sidebar-link">
-              <span class="sidebar-icon">⬡</span> linktree
-            </a>
-          </li>
-        </ul>
+      <div class="sidebar-sections">
+        <div class="sidebar-section">
+          <div class="sidebar-label">contact</div>
+          <ul class="sidebar-links">
+            <li>
+              <a href="mailto:agbadilawal78@gmail.com" class="sidebar-link">
+                <span class="sidebar-icon">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+                </span> gmail
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/sudotx" target="_blank" rel="noopener" class="sidebar-link">
+                <span class="sidebar-icon">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                </span> github
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-label">elsewhere</div>
+          <ul class="sidebar-links">
+            <li>
+              <a href="https://twitter.com/sudotx" target="_blank" rel="noopener" class="sidebar-link">
+                <span class="sidebar-icon">𝕏</span> X
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com/in/agbadi-lawal" target="_blank" rel="noopener" class="sidebar-link">
+                <span class="sidebar-icon">in</span> linkedin
+              </a>
+            </li>
+            <li>
+              <!-- update this with your real linktree URL -->
+              <a href="https://linktr.ee/sudotx" target="_blank" rel="noopener" class="sidebar-link">
+                <span class="sidebar-icon">⬡</span> linktree
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </aside>
 
