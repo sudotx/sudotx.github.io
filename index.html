@@ -152,6 +152,32 @@
       margin-bottom: 1.8rem;
     }
 
+    .telegram-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-top: 0.2rem;
+      padding: 0.3rem 0.55rem;
+      border: 1px solid currentColor;
+      font-size: 0.75rem;
+      line-height: 1;
+      opacity: 0.75;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+
+    .telegram-link:hover {
+      opacity: 1;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .telegram-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
     .sidebar-section {
       margin-bottom: 1.8rem;
     }
@@ -430,7 +456,15 @@
       <div class="sidebar-top">
         <img src="https://github.com/sudotx.png" alt="sudotx" class="author-avatar" />
         <div class="author-info">
-          <div class="author-name">dot</div>
+          <div class="author-name">
+            dot
+            <a href="https://t.me/sudotx" target="_blank" rel="noopener" class="telegram-link" aria-label="Chat with dot on Telegram" title="Telegram">
+              <svg class="telegram-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M21.9 3.3 18.7 20c-.2 1.2-.9 1.5-1.8.9l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.8l-4.8-1.5c-1-.3-1-1 .2-1.5L20.4 3c.9-.3 1.7.2 1.5.3Z"/>
+              </svg>
+              telegram
+            </a>
+          </div>
           <div class="author-role">Ever curious</div>
         </div>
       </div>
