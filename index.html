@@ -272,6 +272,18 @@
     [a="dark"] .entry-meta { color: #fefefe66; }
     [a="light"] .entry-meta { color: #586e7588; }
 
+    [data-token-count] {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+    }
+
+    .token-note {
+      font-size: 0.78rem;
+    }
+
+    [a="dark"] .token-note { color: #fefefe66; }
+    [a="light"] .token-note { color: #586e7588; }
+
     .entry-desc {
       font-size: 0.85rem;
       margin: 0.3rem 0 0.5rem 0;
@@ -477,7 +489,8 @@
       <h1 id="about">about me</h1>
 
       <p>
-        token operator
+        i have used <span data-token-count>&hellip;</span> tokens
+        <span class="token-note">(ps: collectively, and a rough estimate)</span>
       </p>
 
       <b>
@@ -656,6 +669,8 @@
       localStorage.setItem('darkTheme', String(next));
     };
   </script>
+
+  <script src="tokens.js"></script>
 
 </body>
 </html>
