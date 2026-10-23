@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SECONDS=0
+echo 'Checking the static-site preview toolchain...'
+if ! command -v python3 >/dev/null 2>&1; then
+  sudo apt-get update
+  sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3
+fi
+
+python3 --version
+python3 -c 'import http.server'
+echo "Setup ready in ${SECONDS}s; no project dependencies to install."
+echo 'Start the preview with: amp orb services ensure'

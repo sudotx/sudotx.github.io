@@ -1,0 +1,7 @@
+services:
+  portfolio:
+    command: python3 -m http.server "$PORT" --bind 0.0.0.0
+    health: /index.html
+    portal:
+      title: Portfolio preview
+      description: Static site preview; reload the page after editing HTML or JavaScript.
