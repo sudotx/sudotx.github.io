@@ -1,7 +1,7 @@
 services:
   portfolio:
-    command: python3 -m http.server "$PORT" --bind 0.0.0.0
-    health: /index.html
+    command: npm run dev -- --host 0.0.0.0 --port "$PORT" --strictPort
+    health: /
     portal:
       title: Portfolio preview
-      description: Static site preview; reload the page after editing HTML or JavaScript.
+      description: React + Vite development preview with hot reload.
